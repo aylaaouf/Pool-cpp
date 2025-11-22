@@ -12,63 +12,35 @@ PhoneBook::PhoneBook() {
     count = 0;
 }
 
+bool getField(const std::string &prompt, std::string &field){
+    std::cout << prompt;
+    if (!std::getline(std::cin, field)) {
+        std::cout << "\nInput cancelled (EOF).\n";
+        return (false);
+    }
+    if (field.empty()) {
+        std::cout << "Field cannot be empty\n";
+        return (getField(prompt, field));
+    }
+    return (true);
+}
+
 void PhoneBook::addContact() {
     Contact temp;
     std::string input;
-    while (true)
-    {
-        std::cout << "Enter First Name: ";
-        std::getline(std::cin, input);
-        if (input.empty()) {
-            std::cout << "Field cannot be empty\n";
-        } else {
-            break;
-        }
-    }
+    if (!getField("Enter First Name: ", input)) return;
     temp.setFirstName(input);
-    while (true)
-    {
-        std::cout << "Enter Last Name: ";
-        std::getline(std::cin, input);
-        if (input.empty()) {
-            std::cout << "Field cannot be empty\n";
-        } else {
-            break;
-        }
-    }
+    
+    if (!getField("Enter Last Name: ", input)) return;
     temp.setLastName(input);
-    while (true)
-    {
-        std::cout << "Enter Nick Name: ";
-        std::getline(std::cin, input);
-        if (input.empty()) {
-            std::cout << "Field cannot be empty\n";
-        } else {
-            break;
-        }
-    }
+    
+    if (!getField("Enter Nick Name: ", input)) return;
     temp.setNickName(input);
-    while (true)
-    {
-        std::cout << "Enter Phone Number: ";
-        std::getline(std::cin, input);
-        if (input.empty()) {
-            std::cout << "Field cannot be empty\n";
-        } else {
-            break;
-        }
-    }
+    
+    if (!getField("Enter Phone Number: ", input)) return;
     temp.setPhoneNumber(input);
-    while (true)
-    {
-        std::cout << "Enter Darkest Secret: ";
-        std::getline(std::cin, input);
-        if (input.empty()) {
-            std::cout << "Field cannot be empty\n";
-        } else {
-            break;
-        }
-    }
+    
+    if (!getField("Enter Darkest Secret: ", input)) return;
     temp.setDarkestSecret(input);
     contacts[index % 8] = temp;
     index++;
