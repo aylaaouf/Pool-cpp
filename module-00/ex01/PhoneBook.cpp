@@ -25,6 +25,18 @@ bool getField(const std::string &prompt, std::string &field){
     return (true);
 }
 
+bool isValidPhoneNumber(const std::string &phone) {
+    size_t start = 0;
+
+    if (phone[0] == '+')
+            start++;
+    for (size_t i = start; i < phone.length(); i++) {
+        if (!isdigit(phone[i]))
+            return (false);
+    }
+    return (true);
+}
+
 void PhoneBook::addContact() {
     Contact temp;
     std::string input;
@@ -37,7 +49,11 @@ void PhoneBook::addContact() {
     if (!getField("Enter Nick Name: ", input)) return;
     temp.setNickName(input);
     
-    if (!getField("Enter Phone Number: ", input)) return;
+    while (true) {
+        if (!getField("Enter Phone Number: ", input)) return;
+        if (isValidPhoneNumber(input)) break;
+        std::cout << "Invalid phone number! Only digits allowed.\n";
+    }
     temp.setPhoneNumber(input);
     
     if (!getField("Enter Darkest Secret: ", input)) return;
